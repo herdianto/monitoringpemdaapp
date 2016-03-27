@@ -88,7 +88,7 @@ function aktif($sites){
 	}
 
 	function findtwitter($isi){
-         if(preg_match('#https?://(www\.)?twitter\.com/(\w*)#', $isi, $matches)){      
+         if(preg_match('#https?://(www\.)?twitter\.com/(?!share)(\w*)#', $isi, $matches)){      
          return $matches[0]; 
          } else{
          return 0;

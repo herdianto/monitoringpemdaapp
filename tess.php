@@ -1,25 +1,61 @@
 <?php 
-require_once('TwitterAPIExchange.php');
+   $resultnew  = array();
+   $resultold   = array();
+   $csvFiles   =  array(
+      'webpagenew.csv' => 'webpagenew',
+      'webpageold.csv' => 'webpageold'
+   );   
 
-echo "<h2>Simple Twitter API Test</h2>";
+   foreach ($csvFiles as $csvFile => $type) {
+      if ($handle = fopen($csvFile, 'r')) {
 
-$settings = array(
-		'oauth_access_token' 		=>	"228025597-YUcY0ZzKu6UKRvHbCWmNVkWJX6KA2q6iXMYJm2aX",
-		'oauth_access_token_secret'	=>	"jt1Nm1VDPrsiMF6hewuteeQPnDnrBUrzzpsCd2IgyIdiW",
-		'consumer_key'				=>	"NSY2Z4FZFVxfj79oDurQ4dzuu",
-		'consumer_secret'			=>	"iU76267myutQgMjFqVdBL2N8VGCynDVIXwVUWVkUxrwZtqrpMd"
-	);
+      while ($data = fgetcsv($handle, 1000 , ',')) {
 
-$url = "https://api.twitter.com/1.1/statuses/user_timeline.json";
 
-$requestMethod = "GET";
+         switch ($type) {
+            case 'webpagenew':
+               $record = array(
+                  'id_pemda'  => $data[0] , 
+                  'url'       => $data[1] , 
+                  'isaktif'   => $data[2] , 
+                  'urltwit'   => $data[3] 
+               );
 
-$getfield = '?screen_name=aditmayapada&count=1';
+               $idpemda = $record['id_pemda'];
+               $resultnew[$idpemda]  = $record;
+               break;
+            
+            case 'webpageold':
+               $record = array(
+                  'id_pemda'  => $data[0] , 
+                  'url'       => $data[1] , 
+                  'isaktif'   => $data[2] , 
+                  'urltwit'   => $data[3] 
+               );
 
-$twitter = new TwitterAPIExchange($settings);
-echo $twitter->setGetfield($getfield)
-             ->buildOauth($url, $requestMethod)
-             ->performRequest();
+               $idpemda = $record['id_pemda'];
+               $resultold[$idpemda]  = $record;
+               break;
+               
+         }
+      }
+
+
+      }
+   }
+
+      foreach (array_map(null, $resultold , $resultnew) as list ($itemOld,$itemNew) ) {
+         if ($itemOld['urltwit'] == $itemNew['urltwit']){
+            $fu = 0;
+         } else {
+            $fu = 1;
+         }
+
+         echo "Apakah ada update dari id : <br>";
+         echo "hasilnya : ".$fu . "<br>";
+      }
+
+
 
 
 ?>

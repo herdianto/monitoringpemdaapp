@@ -44,12 +44,13 @@ function aktif($sites){
    		// curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
    		// $data = curl_exec($ch);
    		// return $data;
-
-         $html = file_get_html($sites);
-         foreach ($html->find('a') as $element) {
-         $currentContent[] =  $element->href;
+         if (!$html = file_get_html($sites)) {
+            $currentContentToString = 0;
+         } else{
+            foreach ($html->find('a') as $element) {
+            $currentContent[] =  $element->href;
+            }
          }
-         
          return $currentContentToString = implode(" ", $currentContent);
      }
    
@@ -88,7 +89,8 @@ function aktif($sites){
 	}
 
 	function findtwitter($isi){
-         if(preg_match('#https?://(www\.)?twitter\.com/(?!share)(\w*)#', $isi, $matches)){      
+         
+         if(preg_match('#https?://(www\.)?twitter\.com/(?!share)(w*)#', $isi, $matches)){      
          return $matches[0]; 
          } else{
          return 0;
@@ -97,7 +99,7 @@ function aktif($sites){
 
    	
    function findyoutube($isi){
-         if(preg_match('#https?://(www\.)?youtube\.com/user/(\w*)#', $isi, $matches)){
+         if(preg_match('#https?://(www\.)?youtube\.com/(user|channel)/(\w*)#', $isi, $matches)){
          return $matches[0];
          } else {
          return 0;
@@ -106,7 +108,7 @@ function aktif($sites){
 		
 
 	function findfacebook($isi){
-         if(preg_match('#https?://(www\.)?facebook\.com/(\w*)?#', $isi, $matches)){
+         if(preg_match('#https?://(www\.)?facebook\.com/(.*)#', $isi, $matches)){
          return $matches[0];
          } else {
          return 0;

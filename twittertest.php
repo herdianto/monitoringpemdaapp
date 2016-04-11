@@ -27,6 +27,4 @@ $decodejson = json_decode($contenttwitter);
 
 echo $decodejson[0]->{'created_at'};
 
-
-
 ?>

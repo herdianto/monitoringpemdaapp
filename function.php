@@ -90,7 +90,7 @@ function aktif($sites){
 
 	function findtwitter($isi){
          
-         if(preg_match('#https?://(www\.)?twitter\.com/(?!share)(w*)#', $isi, $matches)){      
+         if(preg_match('#https?://(www\.)?twitter\.com/(?!share)(\w+)#', $isi, $matches)){      
          return $matches[0]; 
          } else{
          return 0;
@@ -108,7 +108,7 @@ function aktif($sites){
 		
 
 	function findfacebook($isi){
-         if(preg_match('#https?://(www\.)?facebook\.com/(.*)#', $isi, $matches)){
+         if(preg_match('#https?://(www\.)?facebook\.com/(\S+)#', $isi, $matches)){
          return $matches[0];
          } else {
          return 0;

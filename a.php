@@ -1,17 +1,15 @@
 <?php 
-
-	$data =  array(
-		'id' => 2,
-		'name' => "adit",
-		'country' => "indo"
-	);
-
-	$id = $data['id'];
-	$result[$id] = $data;
-
-	var_dump($result[2]);
-	var_dump($data['name']);
+	require_once 'lib/simple_html_dom.php';
+  	include 'function.php';
 
 
+  	$a = findtwitter('http://www.twitter.com/');
+  	if (empty($a)){
+  		$twit = 0;
+  	} else {
+  		$twit = 1;
+  	}
 
+  	echo $a;
+  	echo $twit;
  ?>

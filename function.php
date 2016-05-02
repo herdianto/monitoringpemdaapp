@@ -51,42 +51,11 @@ function aktif($sites){
             $currentContent[] =  $element->href;
             }
          }
-         return $currentContentToString = implode(" ", $currentContent);
+         return $currentContent;
+         //return $currentContentToString = implode(" ", $currentContent);
+
      }
    
-
-	function frekuensi_update($sites){
-   		
-   		$html = file_get_html($sites);
-   		// $savePath = "cachedPages/";
-   		// $fileName = "webpemda".".csv";
-   		// $oldContent = "";
-
-   		$currentContent = get_url($sites);
-         
-         // if (file_exists($savePath.$fileName)) {
-         //    $oldContent = file_get_contents($savePath.$fileName);
-         // }
-
-         // if($oldContent && $currentContent != $oldContent){
-         //    echo "different";
-         // } else {
-         //    echo "sama";
-         // }
-         
-         file_put_contents($savePath.$fileName,$currentContent);
-         
-         echo "<br>";
-
-         print_r($currentContent);
-
-         echo "<br>";
-
-         var_dump($oldContent);
-
-         // foreach ($html->find('a') as $element) {
-         //    echo $element->href;         }
-	}
 
 	function findtwitter($isi){
          
@@ -96,7 +65,6 @@ function aktif($sites){
          return 0;
          }
    }
-
    	
    function findyoutube($isi){
          if(preg_match('#https?://(www\.)?youtube\.com/(user|channel)/(\w*)#', $isi, $matches)){
@@ -114,6 +82,256 @@ function aktif($sites){
          return 0;
          } 
 	}
+
+   function gethtml($sites){
+      $ch = curl_init($sites);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      return $html = curl_exec($ch);
+   }
+
+   function checkabsUrl($sites,$url){
+         if(gethtml($url)){
+         return $url;
+      }else{
+         $absUrl =  $sites.$url;
+         return $absUrl;
+      }
+   }
+
+   #function kelengkapan
+
+   function geografis($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+         $regex = "#letak|luas|sebelah|batas|wilayah|geografi#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+      if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+
+   function motto($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+         $regex = "#motto|slogan#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+       if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+
+   function lambang($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+          $regex = "#warna|lambang|gambar#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+       if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+
+   function sejarah($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+         $regex = "#tahun|tanggal|sejarah#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+       if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+
+   function visimisi($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+         $regex = "#visi|misi|mewujudkan#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+       if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+
+   function kepala_daerah($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+          $regex = "#profil|wakil|pejabat|bupati|gubernur|struktur|organisasi|kepala|walikota#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+       if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+
+   function peta($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+         $regex = "#map|peta#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+       if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+
+   function perda($listUrl){
+      for ($i=0; $i < count($listUrl) ; $i++) { 
+          $regex = "#perda|peraturan|daerah#i";
+           if (preg_match_all($regex, $listUrl[$i], $matches)) {
+            $url = $listUrl[$i];
+           }else{
+              continue;
+           }
+      }
+      
+       if (empty($url) ) {
+         return 0;
+      }else{
+         $html = gethtml($url);
+
+         if (preg_match_all($regex, $html, $matches)) {
+            return 1;
+         }else{
+            return 0;
+         }
+      } 
+   }
+   #end kelengkapan
+   
+   function get_twitter_fu($nama_pemda){
+
+    $settings = array(
+        'oauth_access_token'    =>  "228025597-YUcY0ZzKu6UKRvHbCWmNVkWJX6KA2q6iXMYJm2aX",
+        'oauth_access_token_secret' =>  "jt1Nm1VDPrsiMF6hewuteeQPnDnrBUrzzpsCd2IgyIdiW",
+        'consumer_key'        =>  "NSY2Z4FZFVxfj79oDurQ4dzuu",
+        'consumer_secret'     =>  "iU76267myutQgMjFqVdBL2N8VGCynDVIXwVUWVkUxrwZtqrpMd"
+      );
+
+    $url = "https://api.twitter.com/1.1/statuses/user_timeline.json";
+
+    $requestMethod = "GET";
+
+
+    $getfield = '?screen_name='.$nama_pemda.'&count=1';
+
+    $twitter = new TwitterAPIExchange($settings);
+    $contenttwitter = $twitter->setGetfield($getfield)
+                 ->buildOauth($url, $requestMethod)
+                 ->performRequest();
+
+
+    $decodejson = json_decode($contenttwitter);
+
+    return $decodejson[0]->{'created_at'};
+
+  }
+
+  function get_youtube_fu($link_yt){
+      $ch = curl_init($link_yt);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      $html = curl_exec($ch);
+
+      //var_dump($html);
+      $regexp = "#</li><li>(.*)</li></ul>#";
+      if(preg_match_all($regexp, $html, $matches)){
+        $res = implode(" ", $matches[1]);
+      }
+
+      if (preg_match("/1 hari yang lalu|1 day ago/", $res, $abc)) {
+        return 1;
+      } else {
+        return 0;
+      }
+  }
 
 
  ?>

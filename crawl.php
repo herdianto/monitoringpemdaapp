@@ -3,6 +3,7 @@
 	require_once 'lib/simple_html_dom.php';
    include 'connection.php';
    include 'function.php';
+   require_once('lib/TwitterAPIExchange.php');
 
       # START CRAWLING
       $mycsvfile = array();
@@ -31,7 +32,7 @@
           $idpemda = $i;
                if (aktif($url)) {
                   $isaktif = 1;
-                  $isi     = get_url($url);
+                  $isi     = implode(" ",get_url($url));
                   $urltwit = findtwitter($isi);
                   if (empty($urltwit)){
                      $twit = 0;
@@ -96,10 +97,12 @@
 
       if ($fh !== false) {
          while (($data = fgetcsv($fh , 1000 , "," )) !== false){
+            #Total Score Logic
+            $totalScore = ($data[2] * 0.5 + ($data[3] * 0.33 + $data[4] * 0.33 + $data[5] * 0.33) * 0.2 + $data[6] * 0.3)*100  ;
 
-            $sql = "INSERT INTO tes (`date`, `id_pemda`, `isaktif` , `twitter` , `facebook` ,`youtube` ,`webupdate`) 
-            VALUES ( CURRENT_DATE(),".$data[0].",'". $data[2] ."','". $data[3] ."','".$data[4]."','".$data[5]."',".$data[6].");";
-            // $result = $conn->query($sql);
+            $sql = "INSERT INTO tes (`date`, `id_pemda`, `isaktif` , `twitter` , `facebook` ,`youtube` ,`webupdate`,`totalscore`) 
+            VALUES ( CURRENT_DATE(),".$data[0].",'". $data[2] ."','". $data[3] ."','".$data[4]."','".$data[5]."',".$data[6].",".$totalScore.");";
+            $result = $conn->query($sql);
 
             echo $sql;
 

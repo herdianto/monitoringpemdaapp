@@ -60,7 +60,7 @@ function aktif($sites){
 	function findtwitter($isi){
          
          if(preg_match('#https?://(www\.)?twitter\.com/(?!share)(\w+)#', $isi, $matches)){      
-         return $matches[0]; 
+         return $matches[2]; 
          } else{
          return 0;
          }
@@ -286,7 +286,7 @@ function aktif($sites){
    }
    #end kelengkapan
    
-   function get_twitter_fu($nama_pemda){
+   function get_twitter_lu($nama_pemda){
 
     $settings = array(
         'oauth_access_token'    =>  "228025597-YUcY0ZzKu6UKRvHbCWmNVkWJX6KA2q6iXMYJm2aX",
@@ -314,7 +314,7 @@ function aktif($sites){
 
   }
 
-  function get_youtube_fu($link_yt){
+  function get_youtube_lu($link_yt){
       $ch = curl_init($link_yt);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 

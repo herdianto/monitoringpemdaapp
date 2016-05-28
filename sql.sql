@@ -30,3 +30,6 @@ FROM pemda INNER JOIN result
 ON result.id_pemda = pemda.id_pemda 
 WHERE result.id_pemda =1 
 GROUP BY result.date LIMIT 30
+
+SELECT COUNT(pemda.nama_pemda) AS jumlah , 
+(COUNT(pemda.nama_pemda)-(SUM(CASE WHEN pemda.url = "-" THEN 1 ELSE 0 END))) AS pemda_terdaftar FROM pemda;

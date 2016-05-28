@@ -31,22 +31,13 @@
                                     </span>
                                 </span>
                                 <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment-o"></i> Daftar Website Pemerintah Daerah
+                                    <i class="fa fa-comment-o"></i> Nilai Website Pemda
                                 </a>
-                                <a href="#" class="list-group-item">ha
+                                <a href="#" class="list-group-item"> Pemda yang Belum Memiliki Website
                                     <i class="fa fa-search"></i> 
                                 </a>
                                 <a href="#" class="list-group-item">
-                                    <i class="fa fa-user"></i> Lorem ipsum
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-folder-open-o"></i> Lorem ipsum
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-bar-chart-o"></i> Lorem ipsumr
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-envelope"></i> Lorem ipsum
+                                    <i class="fa fa-user"></i> Website Pemda Terbaru
                                 </a>
                                 </div>
 
@@ -110,7 +101,11 @@
                           <script>
                             $(document).ready( function () {
                                 $('#tabeldata').DataTable({
-                                    
+                                    "bPaginate": true,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "bAutoWidth": false
                                 });
 
                             } );

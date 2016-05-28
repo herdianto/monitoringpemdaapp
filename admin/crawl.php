@@ -9,7 +9,7 @@
       $mycsvfile = array();
       $fold = fopen('cachedPages/webpageold.csv', "r");
       if ($fold !== false) {
-         while (($data = fgetcsv($fold , 1000 , ",")) !== false) {
+         while (($data = fgetcsv($fold , 100000 , ",")) !== false) {
          $mycsvfile[] = $data;
          }
 
@@ -18,6 +18,7 @@
 
 
       $output =  fopen("cachedPages/webpagenew.csv", 'w') or die("can't open webpagenew.csv");
+      echo "Start Crawling At " . date("h:i:s");
       for ($i = 1; $i <= 530 ; $i++) { 
          $sql = "SELECT url FROM pemda WHERE id_pemda=".$i.";";
          $result = $conn->query($sql);
@@ -58,7 +59,7 @@
 
                   #get twitter is update
                   if (!isset($mycsvfile[$i-1][16])) {
-                     $twitter_update=1;
+                     $twitter_update=0;
                   } else {
                      if ($twit == 0) {
                         $twitter_update=0;
@@ -73,8 +74,8 @@
 
                   #get facebook is update
                   if (!isset($mycsvfile[$i-1][22])) {
-                     $facebook_update=1;
-                  } elseif ($mycsvfile[$i-1][22]==0) {
+                     $facebook_update=0;
+                  } elseif (!isset($mycsvfile[$i-1][22])) {
                      $facebook_update=0;
                   } else {
                      if ($fb == 0) {
@@ -89,23 +90,16 @@
                   }
 
                   #get website is update
-
-                     if (!isset($mycsvfile[$i-1][21])) {
-                        $web_update = 0;
-                     } elseif ($mycsvfile[$i-1][21] == 0) {
+               if (!isset($mycsvfilenew[$i-1][21]) || !isset($mycsvfile[$i-1][21])) {
+                  $web_update = 0;
+               }else{
+                     if ($mycsvfilenew[$i-1][21] == $mycsvfile[$i-1][21]) {
                         $web_update =0;
-                     }else{
-                        if ($isi == 0) {
-                           $web_update =0;
-                        }else{
-                           if ($mycsvfile[$i-1][21] == $isi) {
-                              $web_update =1;
-                           } else{
-                              $web_update =0;
-                           }
-                        }
+                     } else{
+                        $web_update =1;
                      }
-
+               }
+            
           } else {
                $isaktif = 0;
                $isi     = 0;
@@ -184,7 +178,7 @@
 
 
       if ($fh !== false) {
-         while (($data = fgetcsv($fh , 1000 , "," )) !== false){
+         while (($data = fgetcsv($fh , 100000 , "," )) !== false){
             #Total Score Logic
             $selayang_pandang = ($data[6] * 0.1946 + $data[7] * 0.2016 + $data[5] * 0.1933 + $data[4] * 0.1983 + $data[9] * 0.2122) ;
             $kelengkapan = ($data[3] * 0.2059 + $data[10] * 0.2036 + $data[11] * 0.1971 + $data[8] * 0.1964 + $selayang_pandang * 0.1988) ;
@@ -205,24 +199,24 @@
 
             
          }
-         echo "Done At " . date("h:i:s");
+         echo "Done Crawling At " . date("h:i:s");
 
       }
       #END INSERT TO MYSQL
 
-      // #WEBPAGENEW.CSV == WEBPAGEOLD.CSV
-      // $input   = fopen('cachedPages/webpagenew.csv', 'r');  //open for reading
-      // $output  = fopen('cachedPages/webpageold.csv', 'w');  //open for writing
+      #WEBPAGENEW.CSV == WEBPAGEOLD.CSV
+      $input   = fopen('cachedPages/webpagenew.csv', 'r');  //open for reading
+      $output  = fopen('cachedPages/webpageold.csv', 'w');  //open for writing
 
-      // while (($data = fgetcsv($input , 1000 , ",")) !== false ) {
-      //    fputcsv($output, $data);
-      // }
+      while (($data = fgetcsv($input , 100000 , ",")) !== false ) {
+         fputcsv($output, $data);
+      }
 
-      // fclose($input);
-      // fclose($output);
-      // #END OF WEBPAGENEW.CSV == WEBPAGEOLD.CSV
+      fclose($input);
+      fclose($output);
+      #END OF WEBPAGENEW.CSV == WEBPAGEOLD.CSV
 
-      // echo "its done!";
+      echo "Done Update Webpage At " . date("h:i:s");
 
 
 

@@ -23,9 +23,9 @@
         </div>
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="">Home</a>
+                <li><a href="/monitoringpemdaapp/index.php">Home</a>
                 </li>
-                <li><a href="">Data</a>
+                <li><a href="/monitoringpemdaapp/data.php">Data</a>
                 </li>
                 <li><a href="">About Us</a>
                 </li>

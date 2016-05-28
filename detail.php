@@ -66,7 +66,11 @@
 		<script>
         $(document).ready( function () {
             $('#tabeldetail').DataTable({
-                
+                "bPaginate": true,
+                "bLengthChange": false,
+                "bFilter": true,
+                "bInfo": false,
+                "bAutoWidth": false
             });
 
         } );

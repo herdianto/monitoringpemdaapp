@@ -33,3 +33,32 @@ GROUP BY result.date LIMIT 30
 
 SELECT COUNT(pemda.nama_pemda) AS jumlah , 
 (COUNT(pemda.nama_pemda)-(SUM(CASE WHEN pemda.url = "-" THEN 1 ELSE 0 END))) AS pemda_terdaftar FROM pemda;
+
+
+--DETAIL.PHP
+SELECT result.fu_twitter, result.fu_facebook,result.fu_youtube,result.sejarah, result.frekuensi_aktif,result.frekuensi_update, result.date,result.id_pemda , pemda.nama_pemda,pemda.url ,
+
+
+(
+	( ( 
+		(sejarah*0.1946)+(motto_daerah*0.1933)+(lambang*0.1983)+(lokasi*0.2122)+(visi_misi*0.2016)
+		)*0.1988 + (pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971)
+	) * 0.3077)
+		 as kelengkapan_website,
+        
+        round(
+             ((
+(
+	( ( 
+		(sejarah*0.1946)+(motto_daerah*0.1933)+(lambang*0.1983)+(lokasi*0.2122)+(visi_misi*0.2016)
+		)*0.1988 + (pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971)
+	) * 0.3077) +
+		(frekuensi_update*0.3465)+
+		(frekuensi_aktif*0.3458)
+		)* 0.5425) + 
+        ((((facebook*0.5+fu_facebook*0.5)*0.4778)+((twitter*0.5+fu_twitter*0.5)*0.3667)+((youtube*0.5+fu_youtube*0.5)*0.1556))* 0.4575)
+        ,2) as tot
+                      
+
+ FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE result.id_pemda =381 AND result.date = (SELECT MAX(result.date) FROM result)
+                                                                                                                                               

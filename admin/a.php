@@ -7,7 +7,7 @@
 
       # START CRAWLING
       $mycsvfile = array();
-      $fold = fopen('cachedPages/webpageoldcopy.csv', "r");
+      $fold = fopen('cachedPages/webpageold2952016.csv', "r");
       if ($fold !== false) {
          while (($data = fgetcsv($fold , 100000 , ",")) !== false) {
          $mycsvfile[] = $data;
@@ -36,6 +36,7 @@
                         $web_update =0;
                      } else{
                         $web_update =1;
+                        $count[] =1;
                      }
                }
                

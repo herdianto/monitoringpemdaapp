@@ -8,6 +8,7 @@
       <div class="row">
         <div class="col-md-4">
         <?php include 'connection.php'; ?>
+        <?php include 'function.php' ?>
       
           <!-- <h4>Total Website Terdaftar</h4>
           <h4>Total Website Aktif</h4>
@@ -58,25 +59,38 @@
              <h4 style="line-height: 1.5">Tanggal Crawling <span class = "badge pull-right"><?php echo $tanggal_terakhir; ?></span></h4>
           </div>
           <br>
-          <form action="" role="search">
+          
+
+          <form action="test.php" role="search" method="post">
                     <div class="form-group-stylish row">
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Mencari Website Pemda">
+                            <select id="search_web" name="search_web" type="text" class="form-control" value="" placeholder="Mencari Website Pemda"></select>
                         </div>
+                        
                         <div class="col-sm-2">
-                            <button class="btn btn-primary" type="submit">Search</button>
+                            <input class="btn btn-primary" type="submit" name="submit" value="Search" />
+                            <?php 
+                            if (isset($_POST['submit'])) {
+                                $_POST['search_web'];
+                            } 
+                            
+
+                             ?>
                         </div>
 
                     </div>
+                
                 </form>
+                
         </div>
           
         <div class="col-md-8">
              <?php 
               
-              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.2341+SEO_pagerank*0.2393+frekuensi_update*0.2636+frekuensi_aktif*0.2630)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)) AS totalscore
+              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , ROUND(AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.3077+frekuensi_update*0.3465+frekuensi_aktif*0.3458)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)),2) AS totalscore
                       FROM pemda INNER JOIN result
                       ON result.id_pemda = pemda.id_pemda
+                      WHERE DATE_FORMAT(NOW(),'%c')
                       GROUP BY id_pemda
                       ORDER BY totalscore DESC
                       LIMIT 10;
@@ -91,8 +105,9 @@
               }
              ?>
 
-          <h3 class="text-center">10 Website Pemda Terbaik Pada Bulan Maret </h3>
+          <h3 class="text-center">10 Website Pemda Terbaik Pada Bulan <?php $bln=date("m"); echo bulan($bln); ?> </h3>
           <hr>
+
           <div id="webpemdaterbaik" style="height: 400px"></div>
         </div>
       </div>
@@ -111,7 +126,8 @@
         </thead>
         <tbody>
         <?php 
-              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.2341+SEO_pagerank*0.2393+frekuensi_update*0.2636+frekuensi_aktif*0.2630)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)) AS totalscore FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE pemda.tipe ='PROV' GROUP BY id_pemda ORDER BY totalscore DESC LIMIT 10;
+              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , ROUND(AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.3077+frekuensi_update*0.3465+frekuensi_aktif*0.3458)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)),2) AS totalscore
+                      FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE pemda.tipe ='PROV' AND DATE_FORMAT(NOW(),'%c') GROUP BY id_pemda ORDER BY totalscore DESC LIMIT 10;
                       ";
               $result = $conn->query($sql);
 
@@ -123,7 +139,8 @@
               }
          ?>
         <?php 
-              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.2341+SEO_pagerank*0.2393+frekuensi_update*0.2636+frekuensi_aktif*0.2630)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)) AS totalscore FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE pemda.tipe ='KAB' GROUP BY id_pemda ORDER BY totalscore DESC LIMIT 10;
+              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , ROUND(AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.3077+frekuensi_update*0.3465+frekuensi_aktif*0.3458)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)),2) AS totalscore
+                      FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE pemda.tipe ='KAB' AND DATE_FORMAT(NOW(),'%c') GROUP BY id_pemda ORDER BY totalscore DESC LIMIT 10;
                       ";
               $result = $conn->query($sql);
 
@@ -135,7 +152,8 @@
               }
          ?>
         <?php 
-              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.2341+SEO_pagerank*0.2393+frekuensi_update*0.2636+frekuensi_aktif*0.2630)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)) AS totalscore FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE pemda.tipe ='KOTA' GROUP BY id_pemda ORDER BY totalscore DESC LIMIT 10;
+              $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , ROUND(AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.3077+frekuensi_update*0.3465+frekuensi_aktif*0.3458)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)),2) AS totalscore
+                      FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE pemda.tipe ='KOTA' AND DATE_FORMAT(NOW(),'%c') GROUP BY id_pemda ORDER BY totalscore DESC LIMIT 10;
                       ";
               $result = $conn->query($sql);
 
@@ -183,7 +201,10 @@
                       series: [{
                           showInLegend: false,
                           data: [<?php echo $nilai =join(",",$totalscore) ; ?>]
-                      }]
+                      }],
+
+
+
                   });
 
                 var chart2 = new Highcharts.Chart({

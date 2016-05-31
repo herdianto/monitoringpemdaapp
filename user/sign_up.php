@@ -5,7 +5,7 @@
 
 <div class="container">
 
-<form class="form-horizontal">
+<form class="form-horizontal" method="post" action="">
 <fieldset>
 
 <!-- Form Name -->
@@ -51,10 +51,29 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Register</button>
+    <button id="submit" name="submit" class="btn btn-primary">Register</button>
   </div>
 </div>
 
 </fieldset>
 </form>
+      <?php include '../connection.php'; 
+    
+    if (isset($_POST['submit'])) {
+    $sql = "SELECT username FROM user WHERE username = '".$_POST['username']."' or die(mysql_error())";
+    $result = $conn->query($sql);
+            $namalengkap  = $_POST['namalengkap'];
+            $username   = $_POST['username'];
+            $password   = $_POST['password'];
+            $asaldaerah   = $_POST['asaldaerah'];
+            $sql = "INSERT INTO user(previlege,username,password,nama_lengkap,asal_daerah) VALUES (2,'$username','$password','$namalengkap','$asaldaerah');";
+            $result = $conn->query($sql);
+            var_dump($sql);
+           
+    }    
+    
+
+
+
+      ?>
 </div>

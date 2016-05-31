@@ -75,8 +75,6 @@
                   #get facebook is update
                   if (!isset($mycsvfile[$i-1][22])) {
                      $facebook_update=0;
-                  } elseif (!isset($mycsvfile[$i-1][22])) {
-                     $facebook_update=0;
                   } else {
                      if ($fb == 0) {
                         $facebook_update=0;
@@ -90,15 +88,16 @@
                   }
 
                   #get website is update
-               if (!isset($mycsvfilenew[$i-1][21]) || !isset($mycsvfile[$i-1][21])) {
+               if (!isset($isi) || !isset($mycsvfile[$i-1][21])) {
                   $web_update = 0;
                }else{
-                     if ($mycsvfilenew[$i-1][21] == $mycsvfile[$i-1][21]) {
+                     if ($isi == $mycsvfile[$i-1][21]) {
                         $web_update =0;
                      } else{
                         $web_update =1;
                      }
                }
+               
             
           } else {
                $isaktif = 0;
@@ -179,16 +178,9 @@
 
       if ($fh !== false) {
          while (($data = fgetcsv($fh , 100000 , "," )) !== false){
-            #Total Score Logic
-            $selayang_pandang = ($data[6] * 0.1946 + $data[7] * 0.2016 + $data[5] * 0.1933 + $data[4] * 0.1983 + $data[9] * 0.2122) ;
-            $kelengkapan = ($data[3] * 0.2059 + $data[10] * 0.2036 + $data[11] * 0.1971 + $data[8] * 0.1964 + $selayang_pandang * 0.1988) ;
-            $score_website = ($data[2] * 0.2630 + $data[20] * 0.2630 + $data[12] * 0.2394 + $kelengkapan * 0.2341) ;
-            $score_sosmed =  ((($data[13] * 0.5 + $data[17] * 0.5) * 0.3667)+ (($data[14] * 0.5 + $data[18] * 0.5) * 0.4778) + (($data[15] * 0.5 + $data[19] * 0.5) * 0.1156));
-
             
-            
-            $sql = "INSERT INTO `result`(`date`, `id_pemda`, `website`, `kelengkapan_website`, `selayang_pandang`, `sejarah`, `motto_daerah`, `lambang`, `lokasi`, `visi_misi`, `pemerintahan_daerah`,`geografi`, `peraturan_daerah`, `buku_tamu`, `SEO_pagerank`, `frekuensi_update`, `frekuensi_aktif`, `sosial_media`, `facebook`, `twitter`, `youtube`, `fu_facebook`, `fu_twitter`, `fu_youtube`) 
-                                 VALUES (CURRENT_DATE(),".$data[0].",".$score_website.",".$kelengkapan.",".$selayang_pandang.",".$data[6].",".$data[5].",".$data[4].",".$data[9].",".$data[7].",".$data[8].",".$data[3].",".$data[10].",".$data[11].",".$data[12].",".$data[20].",".$data[2].",".$score_sosmed.",".$data[14].",".$data[13].",".$data[15].",".$data[19].",".$data[17].",".$data[18].");";
+            $sql = "INSERT INTO `result`(`date`, `id_pemda`,`sejarah`, `motto_daerah`, `lambang`, `lokasi`, `visi_misi`, `pemerintahan_daerah`,`geografi`, `peraturan_daerah`, `buku_tamu`,`frekuensi_update`, `frekuensi_aktif`,`facebook`, `twitter`, `youtube`, `fu_facebook`, `fu_twitter`, `fu_youtube`) 
+                                 VALUES (CURRENT_DATE(),".$data[0].",".$data[6].",".$data[5].",".$data[4].",".$data[9].",".$data[7].",".$data[8].",".$data[3].",".$data[10].",".$data[11].",".$data[20].",".$data[2].",".$data[14].",".$data[13].",".$data[15].",".$data[19].",".$data[17].",".$data[18].");";
 
             $result = $conn->query($sql);
 

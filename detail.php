@@ -8,8 +8,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<?php    
-
-              $id = $_GET['search_web'];
               include 'connection.php';
               $sql = "SELECT result.fu_twitter, result.fu_facebook,result.fu_youtube,result.sejarah, result.frekuensi_aktif,result.frekuensi_update, result.date,result.id_pemda , pemda.nama_pemda,pemda.url ,
 

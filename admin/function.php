@@ -34,20 +34,7 @@ function aktif($sites){
 
 
 	function get_url($sites){
-   		//$twitterUrl = file_get_contents($site);
-   		//var_dump($twitterUrl);
-   		// if(preg_match('#https?://(www\.)?twitter\.com/(\w*)#', $site, $matches,PREG_OFFSET_CAPTURE)){
-   		
-   		// var_dump($matches);
-   		// $ch = curl_init();
-   		// $timeout = 5;
-   		// curl_setopt($ch, CURLOPT_URL, $sites);
-   		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-   		// curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-   		// $data = curl_exec($ch);
-   		// return $data;
          $ch = curl_init($sites);
-               // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
                curl_setopt($ch, CURLOPT_TIMEOUT, 400);
                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
@@ -127,7 +114,7 @@ function aktif($sites){
 
    function geografis($listUrl){
       for ($i=0; $i < count($listUrl) ; $i++) { 
-         $regex = "#letak|luas|sebelah|batas|wilayah|geografi#i";
+         $regex = "#letak|luas|sebelah|batas|wilayah|geografi|topografi#i";
            if (preg_match_all($regex, $listUrl[$i], $matches)) {
             $match = 1;
             } else {
@@ -161,7 +148,7 @@ function aktif($sites){
 
    function lambang($listUrl){
       for ($i=0; $i < count($listUrl) ; $i++) { 
-          $regex = "#warna|lambang|gambar#i";
+          $regex = "#warna|lambang|logo|gambar#i";
            if (preg_match_all($regex, $listUrl[$i], $matches)) {
             $match = 1;
             } else {
@@ -250,7 +237,7 @@ function aktif($sites){
 
    function perda($listUrl){
       for ($i=0; $i < count($listUrl) ; $i++) { 
-          $regex = "#perda|peraturan|daerah#i";
+          $regex = "#perda|peraturan|daerah|produk|hukum#i";
            if (preg_match_all($regex, $listUrl[$i], $matches)) {
               $match =1;
             } else {

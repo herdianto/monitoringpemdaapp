@@ -5,45 +5,45 @@
    include 'function.php';
    require_once('lib/TwitterAPIExchange.php');
 
-      # START CRAWLING
-      $mycsvfile = array();
-      $fold = fopen('cachedPages/webpageold2952016.csv', "r");
-      if ($fold !== false) {
-         while (($data = fgetcsv($fold , 100000 , ",")) !== false) {
-         $mycsvfile[] = $data;
-         }
+      // # START CRAWLING
+      // $mycsvfile = array();
+      // $fold = fopen('cachedPages/webpageold2952016.csv', "r");
+      // if ($fold !== false) {
+      //    while (($data = fgetcsv($fold , 100000 , ",")) !== false) {
+      //    $mycsvfile[] = $data;
+      //    }
 
-         fclose($fold);
-      }
+      //    fclose($fold);
+      // }
 
       
-      $mycsvfilenew = array();
-      $fnew = fopen('cachedPages/webpagenew.csv', "r");
-      if ($fnew !== false) {
-         while (($data = fgetcsv($fnew , 100000 , ",")) !== false) {
-         $mycsvfilenew[] = $data;
-         }
+      // $mycsvfilenew = array();
+      // $fnew = fopen('cachedPages/webpagenew.csv', "r");
+      // if ($fnew !== false) {
+      //    while (($data = fgetcsv($fnew , 100000 , ",")) !== false) {
+      //    $mycsvfilenew[] = $data;
+      //    }
 
 
-         fclose($fnew);
-      }
+      //    fclose($fnew);
+      // }
 
-      for ($i=1; $i <= count($mycsvfile) ; $i++) { 
-            if (!isset($mycsvfilenew[$i-1][21]) || !isset($mycsvfile[$i-1][21])) {
-                  $web_update = 0;
-               }else{
-                     if ($mycsvfilenew[$i-1][21] == $mycsvfile[$i-1][21]) {
-                        $web_update =0;
-                     } else{
-                        $web_update =1;
-                        $count[] =1;
-                     }
-               }
+      // for ($i=1; $i <= count($mycsvfile) ; $i++) { 
+      //       if (!isset($mycsvfilenew[$i-1][21]) || !isset($mycsvfile[$i-1][21])) {
+      //             $web_update = 0;
+      //          }else{
+      //                if ($mycsvfilenew[$i-1][21] == $mycsvfile[$i-1][21]) {
+      //                   $web_update =0;
+      //                } else{
+      //                   $web_update =1;
+      //                   $count[] =1;
+      //                }
+      //          }
                
-            echo "web update untuk id: ".$i." adalah : ".$web_update."<br>";
+      //       echo "web update untuk id: ".$i." adalah : ".$web_update."<br>";
 
-      }
-      var_dump(count($count));
+      // }
+      // var_dump(count($count));
 
       // if ($mycsvfilenew[6][21] == $mycsvfile[6][21] ) {
       //    $web_update = 0;
@@ -80,7 +80,13 @@
       // fclose($output);
       #END OF WEBPAGENEW.CSV == WEBPAGEOLD.CSV
 
-      echo "Done Update Webpage At " . date("h:i:s");
+      // echo "Done Update Webpage At " . date("h:i:s");
+
+      $a = get_url("http://rokanhulukab.go.id");
+      $b=perda($a);
+      var_dump($b);
+
+
 
 
 

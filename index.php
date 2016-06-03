@@ -61,21 +61,14 @@
           <br>
           
 
-          <form action="test.php" role="search" method="post">
+          <form action="detail.php" role="search" method="get">
                     <div class="form-group-stylish row">
                         <div class="col-md-8">
-                            <select id="search_web" name="search_web" type="text" class="form-control" value="" placeholder="Mencari Website Pemda"></select>
+                            <select id="search_web" name="id_pemda" type="text" class="form-control" value="" placeholder="Mencari Website Pemda"></select>
                         </div>
                         
                         <div class="col-sm-2">
-                            <input class="btn btn-primary" type="submit" name="submit" value="Search" />
-                            <?php 
-                            if (isset($_POST['submit'])) {
-                                $_POST['search_web'];
-                            } 
-                            
-
-                             ?>
+                            <input class="btn btn-primary" type="submit" value="Search" />
                         </div>
 
                     </div>

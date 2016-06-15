@@ -4,9 +4,10 @@
 <br>
  <?php 
     include 'connection.php';
-      $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , ROUND(AVG(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.3077+frekuensi_update*0.3465+frekuensi_aktif*0.3458)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575)),2) AS totalscore
+      $sql = "SELECT result.id_pemda , pemda.nama_pemda,pemda.url , ROUND(((((sejarah*0.1946+motto_daerah*0.1933+lambang*0.1983+lokasi*0.2122+visi_misi*0.2016)*0.1988+(pemerintahan_daerah*0.1946)+(geografi*0.2059)+(peraturan_daerah*0.2036)+(buku_tamu*0.1971))*0.3077+frekuensi_update*0.3465+frekuensi_aktif*0.3458)*0.5425+ ((facebook*0.5+fu_facebook*0.5)*0.4778+(twitter*0.5+fu_twitter*0.5)*0.3667+(youtube*0.5+fu_youtube*0.5)*0.1556)*0.4575),2) AS totalscore
               FROM pemda INNER JOIN result
               ON result.id_pemda = pemda.id_pemda
+              WHERE date=(SELECT MAX(date) FROM result)
               GROUP BY id_pemda
               ORDER BY totalscore DESC
               LIMIT 530
@@ -44,23 +45,44 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Menambahkan Website Pemda</div>
                 <div class="panel-body">
-                    <form action="" role="input">
+                <?php if (!isset($_SESSION['id'])) {
+                  echo '<div class="alert alert-danger">
+                                    <strong>Perhatian!</strong> Silakan login untuk melakukan request web pemda.
+                                  </div>';
+                } ?>
+                
+                    <form action="" role="input" method="post">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="Masukkan Nama Pemda">
+                                <select id="search_web" name="search_web" class="form-control" placeholder="Masukkan Nama Pemda">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="Masukkan URL Pemda">
+                                <input type="text" name ="url" class="form-control" placeholder="Masukkan URL Pemda">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <input class="btn btn-primary" name="submit" type="submit" value="Submit">
                             </div>
                         </div>
                         </form>
+                      <?php 
+                      if (isset($_POST['submit'])) {
+                        if (isset($_SESSION['id'])) {
+                          if (isset($_POST['search_web']) && isset($_POST['url'])) {
+                          $sql = "INSERT INTO addpemda(`id_pemda`,`id_user`,`new_pemda`) VALUES(".$_POST['search_web'].",".$_SESSION['id'].",'".$_POST['url']."');";
+                          $result = $conn->query($sql);
+                          }else{
+                            
+                          }
+
+                        }else{
+                          echo "<script>alert('Anda Belum Login, Silakan Login Terlebih Dahulu')</script>";
+                          }
+                      }
+                       ?>
                   </div>
                     
               </div>

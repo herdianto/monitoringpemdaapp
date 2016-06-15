@@ -1,4 +1,4 @@
-<?php include'../templates/header.php'; ?>
+<?php include'templates/header.php'; ?>
 <br>
 <br>
 <br>
@@ -57,7 +57,7 @@
 
 </fieldset>
 </form>
-      <?php include '../connection.php'; 
+      <?php include 'connection.php'; 
     
     if (isset($_POST['submit'])) {
     $sql = "SELECT username FROM user WHERE username = '".$_POST['username']."' or die(mysql_error())";

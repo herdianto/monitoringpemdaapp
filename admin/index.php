@@ -1,13 +1,62 @@
 <?php include 'templates/header_admin.php'; ?>
         <div id="page-wrapper">
 
+        <?php include 'connection.php'; 
+        session_start();
+        if ($_SESSION['previlege']!=1) {
+          header("Location:../index.php");
+        }
+
+        $sql = "SELECT user.username, user.nama_lengkap,pemda.nama_pemda,user.timestamp
+                FROM user join pemda on user.asal_daerah = pemda.id_pemda where previlege=2
+                ";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+        $nama_user[]       = $row["username"];
+        $nama_lengkap[]       = $row["nama_lengkap"];
+        $asal_daerah[]     = $row["nama_pemda"];
+        $waktu_daftar[]      = $row["timestamp"];
+        }
+        if (isset($nama_user)) {
+          $count = count($nama_user);  
+        } else{
+          $count = 0;
+        }
+        
+                  
+        $sql = "SELECT addpemda.id, user.username,pemda.nama_pemda,pemda.url,addpemda.new_pemda,addpemda.timestamp 
+                          FROM addpemda join pemda 
+                          ON addpemda.id_pemda = pemda.id_pemda join user 
+                          ON addpemda.id_user = user.id 
+
+                          ";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+        $id[]             = $row["id"];
+        $user_name[]       = $row["username"];
+        $nama_pemda[]     = $row["nama_pemda"];
+        $url[]            = $row["url"];
+        $new_pemda[]      = $row["new_pemda"];
+        $timestamp[]      = $row["timestamp"];
+        }
+        
+        if (isset($user_name)) {
+          $jmlreq = count($user_name);
+        }else{
+          $jmlreq = 0;
+        }          
+
+        $sql = "SELECT max(date) AS tanggal_terakhir, CURRENT_DATE() as tanggal_sekarang FROM result";
+        $result = mysqli_query($conn,$sql);
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        ?>
             <div class="container-fluid">
 
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Welcome Back Admin ! 
+                            Welcome Back, Admin ! 
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
@@ -30,7 +79,7 @@
                                         <i class="fa fa-users fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
+                                        <div class="huge"><?php echo $count; ?></div>
                                         <div>Total User Terdaftar</div>
                                     </div>
                                 </div>
@@ -52,7 +101,7 @@
                                         <i class="fa fa-send fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
+                                        <div class="huge"><?php echo $jmlreq; ?></div>
                                         <div>Request Url Pemda Baru</div>
                                     </div>
                                 </div>
@@ -101,15 +150,24 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-md-12">
-                        <div class="alert alert-info">
-                          <strong>Info!</strong> Last Crawl on 12-06-2016 ! Click this button Below to start Crawling
+                    <?php if ($row['tanggal_terakhir']==$row['tanggal_sekarang']){ ?>
+                      <div class="alert alert-info">
+                          <strong>Info!</strong> Last Crawl on <?php echo $row['tanggal_terakhir']; ?> ! Click this button Below to start Crawling
                         </div>
 
-                        <button class="btn btn-default orange-circle-button " href="">Start<br />Crawling!<br /><span class="orange-circle-greater-than"></span></button>
+                        <a href="" onclick="alert('Anda sudah melakukan Crawling hari ini')"><span class="btn btn-default orange-circle-button"><span class="orange-circle-greater-than">Start<br />Crawling!<br /></span></span></a>
                         <p><br></p>
                     </div>   
+                    <?php } else{ ?>
+                        <div class="alert alert-info">
+                          <strong>Info!</strong> Last Crawl on <?php echo $row['tanggal_terakhir']; ?> ! Click this button Below to start Crawling
+                        </div>
+
+                        <a href="crawl.php" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;"><span class="btn btn-default orange-circle-button"><span class="orange-circle-greater-than">Start<br />Crawling!<br /></span></span></a>
+                        <p><br></p>
+                    </div>   
+                    <?php } ?>
                     
                 </div>  <!-- end of row button-->
                 <!-- /.row -->
@@ -125,7 +183,7 @@
                 </div>
                 <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</button>                 
+                  
                   <table id="tableuser" class="table table-hover table-condensed table-striped">
                     <thead>
                       <tr>
@@ -138,60 +196,22 @@
                       </tr>
                     </thead>
                     <tbody>
-                    
-                        <tr>
-                          <td>1</td>
-                          <td>aditmay</td>
-                          <td>Aditya Mayapada</td>
-                          <td>Bontang Kota</td>
-                          <td>2016-05-30 00:27:58</td>
-                          <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true">  </span></a>
-                          <a onclick="return confirm('Are you want deleting data')" href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    <?php 
+                    for ($i=0; $i < $count ; $i++) { ?>
+                      <tr>
+                          <td><?php echo $i+1; ?></td>
+                          <td><?php echo $nama_user[$i]; ?></td>
+                          <td><?php echo $nama_lengkap[$i]; ?></td>
+                          <td><?php echo $asal_daerah[$i]; ?></td>
+                          <td><?php echo $waktu_daftar[$i]; ?></td>
+                          <td>
+                          <a onclick="return confirm('Are you want decline the request?')" href="crud/delete_user.php?nama_user=<?php echo $nama_user[$i]; ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"> </span></a>
+                          
                           </td>
                         </tr>
-                                    <tr>
-                          <td>2</td>
-                          <td>aditmay</td>
-                          <td>Aditya Mayapada</td>
-                          <td>Bontang Kota</td>
-                          <td>2016-05-30 00:27:58</td>
-                          <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true">  </span></a>
-                          <a onclick="return confirm('Are you want deleting data')" href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                          </td>
-                        </tr>
-                                    <tr>
-                          <td>3</td>
-                          <td>aditmay</td>
-                          <td>Aditya Mayapada</td>
-                          <td>Bontang Kota</td>
-                          <td>2016-05-30 00:27:58</td>
-                          <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true">  </span></a>
-                          <a onclick="return confirm('Are you want deleting data')" href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                          </td>
-                        </tr>
-                                    <tr>
-                          <td>4</td>
-                          <td>aditmay</td>
-                          <td>Aditya Mayapada</td>
-                          <td>Bontang Kota</td>
-                          <td>2016-05-30 00:27:58</td>
-                          <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true">  </span></a>
-                          <a onclick="return confirm('Are you want deleting data')" href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                          </td>
-                        </tr>
-                                    <tr>
-                          <td>5</td>
-                          <td>aditmay</td>
-                          <td>Aditya Mayapada</td>
-                          <td>Bontang Kota</td>
-                          <td>2016-05-30 00:27:58</td>
-                          <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true">  </span></a>
-                          <a onclick="return confirm('Are you want deleting data')" href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                          </td>
-                        </tr>
-                      
+                    <?php } ?>
                         
-
+                                    
                     </tbody>
                   </table>
                 </div>
@@ -210,6 +230,13 @@
                 </div>
                 <div class="row">
                 <div class="col-md-12">
+                <?php 
+                  
+
+                          // $result = mysqli_query($conn,$sql);
+                          // $row[] = mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+                 ?>
                   <table id="tablerequest" class="table table-hover table-condensed table-striped">
                     <thead>
                       <tr>
@@ -223,19 +250,27 @@
                       </tr>
                     </thead>
                     <tbody>
-                    
-                        <tr>
-                          <td>1</td>
-                          <td>aditmay</td>
-                          <td>KOTA BONTANG</td>
-                          <td>http://bontangkota.go.id</td>
-                          <td>http://kotabontang.go.id</td>
-                          <td>2016-05-30 00:27:58</td>
-                          <td><a href="#"><span class="glyphicon glyphicon-ok" aria-hidden="true">  </span></a>
-                          <a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true">  </span></a>
-                          <a onclick="return confirm('Are you want decline the request?')" href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    <?php 
+                    for ($i=0; $i < $jmlreq ; $i++) { ?>
+                      <tr>
+                          <td><?php echo $id[$i]; ?></td>
+                          <td><?php echo $user_name[$i]; ?></td>
+                          <td><?php echo $nama_pemda[$i]; ?></td>
+                          <td><?php echo $url[$i]; ?></td>
+                          <td><?php echo $new_pemda[$i]; ?></td>
+                          <td><?php echo $timestamp[$i]; ?></td>
+                          <td>
+                          
+                          <a href="crud/validate.php?id_request=<?php echo $id[$i]; ?>&nama_pemda=<?php echo $nama_pemda[$i]; ?>&url_baru=<?php echo $new_pemda[$i]; ?>"><span class="glyphicon glyphicon-ok" aria-hidden="true"> </span></a>
+                          <a onclick="return confirm('Are you want decline the request?')" href="crud/delete.php?id_request=<?php echo $id[$i]; ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"> </span></a>
+                          
+                          
                           </td>
                         </tr>
+                    <?php }
+
+                     ?>
+                        
                                     
                         
 

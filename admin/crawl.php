@@ -18,7 +18,8 @@
 
 
       $output =  fopen("cachedPages/webpagenew.csv", 'w') or die("can't open webpagenew.csv");
-      echo "Start Crawling At " . date("h:i:s");
+      
+      
       for ($i = 1; $i <= 530 ; $i++) { 
          $sql = "SELECT url FROM pemda WHERE id_pemda=".$i.";";
          $result = $conn->query($sql);
@@ -26,8 +27,14 @@
          while ( $row = $result->fetch_assoc()) {
           $url       = $row["url"];
           $idpemda = $i;
+          
+          $startcrawling = getTimeToMicroseconds();
 
+          
           if ($isiarr = get_url($url)) {
+            
+            $startparsing = getTimeToMicroseconds();
+             
              $isaktif = 1;
              // $isiarr  = get_url($url);
              $isi     = implode(" ",$isiarr);
@@ -128,10 +135,12 @@
                            #under construction
                            
                            $pagerank = 1;
-                           
 
+         
+         $tocsv = getTimeToMicroseconds();
 
                            #
+
 
             $list = array ( 
                'id_pemda'     => $idpemda, #0
@@ -156,7 +165,11 @@
                'facebook_update'   => $facebook_update, #19
                'web_update'   => $web_update, #20
                'isi'          => $isi, #21
-               'facebook_lu'  => $facebook_lu #22
+               'facebook_lu'  => $facebook_lu, #22
+               'startcrawl'             => $startcrawling,
+               'startparsing' => $startparsing,
+               'tocsv' => $tocsv
+
             );
             
             fputcsv($output, $list , ',');

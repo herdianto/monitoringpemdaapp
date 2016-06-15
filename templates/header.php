@@ -32,16 +32,23 @@
                 </li>
                 <li><a href="">About Us</a>
                 </li>
-                <li class="dropdown" id="menuLogin">
-                  <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
-                  <div class="dropdown-menu" style="padding:17px">
-                    <form class="form-group-stylish row" > 
-                      <input class="form-control" name="username" id="username" type="text" placeholder="Username"> 
-                      <input class="form-control" name="password" id="password" type="password" placeholder="Password"><br>
-                      <button type="button" id="btnLogin" class="btn">Login</button> or <a href="./user/sign_up.php">Sign Up</a> 
-                    </form>
-                  </div>
-                </li>
+                <?php 
+                include 'connection.php';
+                session_start();
+                
+                if (isset($_SESSION['login_user'])) {
+                  ?><li>
+                  <a href="logout.php">Log Out</a>
+                  
+                  </li> <?php  
+                } else{
+                ?>   
+                  <li>
+                  <a href="login.php">Login</a>
+                  
+                  </li> <?php
+                } ;
+                ?>
             </ul>
         </div>
     </div>

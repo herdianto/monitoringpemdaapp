@@ -1,6 +1,6 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/monitoringpemdaapp/connection.php");
-// 
+
 $sql =  "SELECT pemda.id_pemda, pemda.nama_pemda AS text FROM pemda WHERE pemda.nama_pemda LIKE '%".($_GET['q'])."%' ";
 $result = $conn->query($sql);
 

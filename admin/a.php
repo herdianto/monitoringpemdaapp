@@ -5,9 +5,9 @@
    include 'function.php';
    require_once('lib/TwitterAPIExchange.php');
 
-      // # START CRAWLING
+      // // # START CRAWLING
       // $mycsvfile = array();
-      // $fold = fopen('cachedPages/webpageold2952016.csv', "r");
+      // $fold = fopen('cachedPages/4jun2016.csv', "r");
       // if ($fold !== false) {
       //    while (($data = fgetcsv($fold , 100000 , ",")) !== false) {
       //    $mycsvfile[] = $data;
@@ -28,29 +28,40 @@
       //    fclose($fnew);
       // }
 
-      // for ($i=1; $i <= count($mycsvfile) ; $i++) { 
-      //       if (!isset($mycsvfilenew[$i-1][21]) || !isset($mycsvfile[$i-1][21])) {
-      //             $web_update = 0;
-      //          }else{
-      //                if ($mycsvfilenew[$i-1][21] == $mycsvfile[$i-1][21]) {
-      //                   $web_update =0;
-      //                } else{
-      //                   $web_update =1;
-      //                   $count[] =1;
-      //                }
-      //          }
+      // $old = $mycsvfile[355][21];
+      // $new = $mycsvfilenew[355][21];
+      
+
+      
+      // print_r($old);
+      // echo "<br>";
+      // echo "<br>";
+      // print_r($new);
+         
+
+      // // for ($i=1; $i <= count($mycsvfile) ; $i++) { 
+      // //       if (!isset($mycsvfilenew[$i-1][21]) || !isset($mycsvfile[$i-1][21])) {
+      // //             $web_update = 0;
+      // //          }else{
+      // //                if ($mycsvfilenew[$i-1][21] == $mycsvfile[$i-1][21]) {
+      // //                   $web_update =0;
+      // //                } else{
+      // //                   $web_update =1;
+      // //                   $count[] =1;
+      // //                }
+      // //          }
                
-      //       echo "web update untuk id: ".$i." adalah : ".$web_update."<br>";
+      // //       echo "web update untuk id: ".$i." adalah : ".$web_update."<br>";
 
-      // }
-      // var_dump(count($count));
+      // // }
+      // // var_dump(count($count));
 
-      // if ($mycsvfilenew[6][21] == $mycsvfile[6][21] ) {
-      //    $web_update = 0;
-      // } else {
-      //    $web_update = 1;
-      // }
-      // echo $web_update;
+      // // if ($mycsvfilenew[6][21] == $mycsvfile[6][21] ) {
+      // //    $web_update = 0;
+      // // } else {
+      // //    $web_update = 1;
+      // // }
+      // // echo $web_update;
       
 
       
@@ -59,32 +70,39 @@
 
             
 
-         #INSERT TO CSV
+      //    #INSERT TO CSV
             
          
-         #END INSERT CSV
-      #END CRAWLING
+      //    #END INSERT CSV
+      // #END CRAWLING
 
 
             
 
-      #WEBPAGENEW.CSV == WEBPAGEOLD.CSV
-      // $input   = fopen('cachedPages/webpagenew.csv', 'r');  //open for reading
-      // $output  = fopen('cachedPages/webpageold.csv', 'w');  //open for writing
+      // #WEBPAGENEW.CSV == WEBPAGEOLD.CSV
+      // // $input   = fopen('cachedPages/webpagenew.csv', 'r');  //open for reading
+      // // $output  = fopen('cachedPages/webpageold.csv', 'w');  //open for writing
 
-      // while (($data = fgetcsv($input , 1000 , ",")) !== false ) {
-      //    fputcsv($output, $data);
-      // }
+      // // while (($data = fgetcsv($input , 1000 , ",")) !== false ) {
+      // //    fputcsv($output, $data);
+      // // }
 
-      // fclose($input);
-      // fclose($output);
-      #END OF WEBPAGENEW.CSV == WEBPAGEOLD.CSV
+      // // fclose($input);
+      // // fclose($output);
+      // #END OF WEBPAGENEW.CSV == WEBPAGEOLD.CSV
 
-      // echo "Done Update Webpage At " . date("h:i:s");
+      // // echo "Done Update Webpage At " . date("h:i:s");
 
-      $a = get_url("http://rokanhulukab.go.id");
-      $b=perda($a);
-      var_dump($b);
+      // // $a = get_url("http://rokanhulukab.go.id");
+      // // $b=perda($a);
+      // // var_dump($b);
+
+$b = getTimeToMicroseconds();
+var_dump($a);
+get_url('http://www.acehprov.go.id');
+$c = getTimeToMicroseconds();
+$a = $c-$b;
+echo $a;
 
 
 

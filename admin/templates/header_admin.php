@@ -56,7 +56,7 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                            <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
+                            <li><a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
            

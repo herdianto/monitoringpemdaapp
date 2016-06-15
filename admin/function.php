@@ -31,11 +31,18 @@ function aktif($sites){
    //       echo "down";
    //    }
    // }
+    function getTimeToMicroseconds() {
+        $t = microtime(true);
+        $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
+        $d = new DateTime(date('H:i:s.' . $micro, $t));
 
+        return $d->format("H:i:s.u"); 
+    }
 
 	function get_url($sites){
          $ch = curl_init($sites);
-               curl_setopt($ch, CURLOPT_TIMEOUT, 400);
+               curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+               curl_setopt($ch, CURLOPT_TIMEOUT, 120);
                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36');
@@ -264,9 +271,6 @@ function aktif($sites){
   }
 
    function get_twitter_lu($nama_pemda){
-
-
-
     if ($nama_pemda !==0) {
         if (!twitterAccountExists($nama_pemda)) {
             $settings = array(
@@ -301,10 +305,6 @@ function aktif($sites){
     }else{
       return 0;
     }
-    
-
-    
-
   }
 
   function get_youtube_lu($link_yt){

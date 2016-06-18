@@ -42,7 +42,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="asaldaerah">Asal Daerah</label>
   <div class="col-md-4">
-    <input id="asaldaerah" name="asaldaerah" type="search" placeholder="Asal Daerah" class="form-control input-md" required="">
+    <select id="search_web" name="asaldaerah" class="form-control" placeholder="Masukkan Nama Pemda"></select>
     
   </div>
 </div>
@@ -68,7 +68,7 @@
             $asaldaerah   = $_POST['asaldaerah'];
             $sql = "INSERT INTO user(previlege,username,password,nama_lengkap,asal_daerah) VALUES (2,'$username','$password','$namalengkap','$asaldaerah');";
             $result = $conn->query($sql);
-            var_dump($sql);
+            
            
     }    
     

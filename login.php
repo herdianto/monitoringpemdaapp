@@ -1,7 +1,8 @@
 
                         <?php
                         include 'connection.php';
-                        session_start(); 
+                        
+                        include 'templates/header.php';
 	                      if($_SERVER["REQUEST_METHOD"] == "POST"){
 	                    
 	                        $myusername = mysqli_real_escape_string($conn,$_POST['username']);
@@ -37,22 +38,42 @@
 	                      }
 
                       ?>
-                        <div align = "center">
-         <div style = "width:300px; border: solid 1px #333333; " align = "left">
-            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
-				
-            <div style = "margin:30px">
-               
-               <form action = "" method = "post">
-                  <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
-                  <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
-                  <input type = "submit" value = " Submit "/><br />
-               </form>
-               
-               <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php if (isset($error)){echo $error;}; ?></div>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+    <div class="container">
+        
+       <form class="form-horizontal" action = "" method = "post">
+       	
+       	<legend>Log In</legend>
+       	<div class="form-group">
+          <label class="col-md-4 control-label" for="username">UserName </label>
+        <div class="col-md-4">
+        <input type = "text" name = "username" class="form-control input-md" placeholder="Username" required="">
+        </div>
+		</div>
+
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="password">Password</label>
+		  <div class="col-md-4">
+		    <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required="">  
+		  </div>
+		</div>
+          
+        <div class="form-group">
+		  <label class="col-md-4 control-label" for="singlebutton"></label>
+		  <div class="col-md-4">
+		    <button id="submit" name="submit" class="btn btn-primary">Log In</button>
+		  </div>
+		</div>
+       </form>
+
+       <div class="form-group">
+		  <label class="col-md-4 control-label" for="password"><a href="sign_up.php">Register Here</a></label>
+		</div>
+       
+       <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php if (isset($error)){echo $error;}; ?></div>
 					
-            </div>
-				
-         </div>
-			
-      </div>
+    </div>
+		

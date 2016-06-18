@@ -20,13 +20,13 @@
       $output =  fopen("cachedPages/webpagenew.csv", 'w') or die("can't open webpagenew.csv");
       
       
-      for ($i = 1; $i <= 530 ; $i++) { 
-         $sql = "SELECT url FROM pemda WHERE id_pemda=".$i.";";
+      for ($i = 250; $i <= 530 ; $i++) { 
+         $sql = "SELECT id_pemda,url FROM pemda WHERE id_pemda=".$i.";";
          $result = $conn->query($sql);
          
          while ( $row = $result->fetch_assoc()) {
           $url       = $row["url"];
-          $idpemda = $i;
+          $idpemda = $row["id_pemda"];
           
           $startcrawling = getTimeToMicroseconds();
 

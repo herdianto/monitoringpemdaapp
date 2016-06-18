@@ -41,10 +41,10 @@ function aktif($sites){
 
 	function get_url($sites){
          $ch = curl_init($sites);
-               curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-               curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+               // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 12);
+               curl_setopt($ch, CURLOPT_TIMEOUT, 200);
                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-               curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+               curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36');
                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
                curl_setopt($ch, CURLOPT_HEADER, true);
@@ -331,7 +331,7 @@ function aktif($sites){
   function get_facebook_lu($sites){
        $ch = curl_init($sites);
        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-       curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+       curl_setopt($ch, CURLOPT_FOLLOWLOCATION, FALSE);
        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36');
        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
        curl_setopt($ch, CURLOPT_HEADER, FALSE);

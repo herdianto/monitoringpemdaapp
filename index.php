@@ -100,23 +100,29 @@
 
 
          <ul class="nav nav-tabs">
-            <li class="nav active"><a href="#A" data-toggle="tab">A</a></li>
-            <li class="nav"><a href="#B" data-toggle="tab">B</a></li>
-            <li class="nav"><a href="#C" data-toggle="tab">C</a></li>
+            <li class="nav active"><a href="#A" data-toggle="tab">Nilai Website Terbaik</a></li>
+            <li class="nav"><a href="#B" data-toggle="tab">Nilai Website Terendah</a></li>
+            
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane fade in active" id="A">Content inside tab A</div>
-            <div class="tab-pane fade" id="B">Content inside tab B</div>
-            <div class="tab-pane fade" id="C">Content inside tab C</div>
+            <div class="tab-pane fade in active" id="A">
+              <h3 class="text-center">10 Website Pemda Terbaik Pada Bulan <?php $bln=date("m"); echo bulan($bln); ?> </h3>
+              
+              <div id="webpemdaterbaik" style="height: 400px"></div>
+            </div>
+            <div class="tab-pane fade" id="B">
+              <h3 class="text-center">10 Website Pemda Terendah Pada Bulan <?php $bln=date("m"); echo bulan($bln); ?> </h3>
+              
+              <div id="webpemdaterendah" style="height: 400px"></div>
+            </div>
         </div>
 
-          
-          <h3 class="text-center">10 Website Pemda Terbaik Pada Bulan <?php $bln=date("m"); echo bulan($bln); ?> </h3>
-          <hr>
 
-          <div id="webpemdaterbaik" style="height: 400px"></div>
+          
+
+          
         </div>
       </div>
 

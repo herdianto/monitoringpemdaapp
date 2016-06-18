@@ -97,12 +97,12 @@
       // // $b=perda($a);
       // // var_dump($b);
 
-$b = getTimeToMicroseconds();
+
+
+$a=get_url('http://www.gorontaloprov.go.id/');
 var_dump($a);
-get_url('http://www.acehprov.go.id');
-$c = getTimeToMicroseconds();
-$a = $c-$b;
-echo $a;
+
+
 
 
 

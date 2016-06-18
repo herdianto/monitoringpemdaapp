@@ -30,11 +30,7 @@
                 </li>
                 <li><a href="/monitoringpemdaapp/data.php">Data</a>
                 </li>
-                <li><a href="/monitoringpemdaapp/about_us.php">About Us</a>
-                </li>
-                <li>
-                  <a href="/monitoringpemdaapp/methodology.php">Methodology</a>
-
+                <li><a href="">About Us</a>
                 </li>
                 <?php 
                 include 'connection.php';

@@ -99,8 +99,8 @@
 
 
 
-$a=get_url('http://www.gorontaloprov.go.id/');
-var_dump($a);
+// $a=get_url('http://utara.jakarta.go.id/srv4/');
+// var_dump($a);
 
 
 
@@ -112,3 +112,7 @@ var_dump($a);
    
 
  ?>
+ <a href="addi.is.its.ac.id/egovbench.html">
+      <IMG SRC="http://localhost/monitoringpemdaapp/img/banner.png" BORDER="0" WIDTH="320" HEIGHT="300">
+      </a>
+      

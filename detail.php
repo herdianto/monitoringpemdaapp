@@ -31,7 +31,7 @@
                ,2) AS totalscore
     
     
-                      FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE result.id_pemda =".$_GET["id_pemda"]." GROUP BY result.date LIMIT 30";
+                      FROM pemda INNER JOIN result ON result.id_pemda = pemda.id_pemda WHERE result.id_pemda =".$_GET["id_pemda"]." AND DATE_FORMAT(NOW(),'%c') GROUP BY result.date LIMIT 30";
               $result = $conn->query($sql);
 
               while ($row = $result->fetch_assoc()) {
@@ -94,7 +94,24 @@
            </script>
 		</div>
 	</div>	
-	
+	<div class="row">
+    <div class="col-md-12">
+    <script>
+      (function(){
+          new Clipboard('#copy-button');
+      })();
+    </script>
+   
+    <div class="form-group">
+      <label for="comment"> Tampilkan Banner ini di Website Anda </label>
+      <textarea class="form-control" rows="2" id="txtb"><A HREF="addi.is.its.ac.id/egovbench.html">
+      <IMG SRC="http://localhost/monitoringpemdaapp/img/banner.png" BORDER="0" WIDTH="320" HEIGHT="320">
+      </A>
+      </textarea>
+      <button id="copy-button" name="copy-button" class="btn btn-primary" data-clipboard-target="#txtb">Copy</button>
+    </div>
+    </div>
+  </div>
 	<div class="row">
 		<div class="col-md-12">
 		<script>

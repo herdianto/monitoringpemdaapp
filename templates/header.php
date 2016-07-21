@@ -11,6 +11,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
     <link href="css/style.css" rel="stylesheet">
 
@@ -20,7 +21,7 @@
 
 <div id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="#">Monitoring Web Pemda App</a>
+        <div class="navbar-header"><a class="navbar-brand" href="/monitoringpemdaapp/index.php">EGOV Bench</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
         </div>

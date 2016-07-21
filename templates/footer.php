@@ -1,6 +1,6 @@
        
       <address>
-         <strong>Aditya Mayapada</strong><br>Information System Department<br> Sepuluh Nopember Institut of Technology <br>Surabaya, Indonesia<br> <abbr title="Phone">P:</abbr> +62 852 4668 0093
+        <!--  <strong>Aditya Mayapada</strong><br>Information System Department<br> Sepuluh Nopember Institut of Technology <br>Surabaya, Indonesia<br> <abbr title="Phone">P:</abbr> +62 852 4668 0093 -->
       </address>
     </div>
     <!-- <div class="col-md-4">

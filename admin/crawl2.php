@@ -7,7 +7,7 @@
 
       # START CRAWLING
       $mycsvfile = array();
-      $fold = fopen('cachedPages/webpageold.csv', "r");
+      $fold = fopen('cachedPages/webpageold2.csv', "r");
       if ($fold !== false) {
          while (($data = fgetcsv($fold , 100000 , ",")) !== false) {
          $mycsvfile[] = $data;
@@ -17,10 +17,10 @@
       }
 
 
-      $output =  fopen("cachedPages/webpagenew.csv", 'w') or die("can't open webpagenew.csv");
+      $output =  fopen("cachedPages/webpagenew2.csv", 'w') or die("can't open webpagenew.csv");
       
       
-      for ($i = 1; $i <= 249 ; $i++) { 
+      for ($i = 250; $i <= 530 ; $i++) { 
          $sql = "SELECT id_pemda,url FROM pemda WHERE id_pemda=".$i.";";
          $result = $conn->query($sql);
          
@@ -137,7 +137,7 @@
                            $pagerank = 1;
 
          
-      
+
 
                            #
 
@@ -167,7 +167,6 @@
                'isi'          => $isi, #21
                'facebook_lu'  => $facebook_lu, #22
 
-
             );
             
             fputcsv($output, $list , ',');
@@ -184,7 +183,7 @@
 
 
       #INSERT TO MYSQL
-      $fh   = fopen('cachedPages/webpagenew.csv', "r");
+      $fh   = fopen('cachedPages/webpagenew2.csv', "r");
 
 
       if ($fh !== false) {
@@ -192,7 +191,7 @@
             
             $sql = "INSERT INTO `result`(`date`, `id_pemda`,`sejarah`, `motto_daerah`, `lambang`, `lokasi`, `visi_misi`, `pemerintahan_daerah`,`geografi`, `peraturan_daerah`, `buku_tamu`,`frekuensi_update`, `frekuensi_aktif`,`facebook`, `twitter`, `youtube`, `fu_facebook`, `fu_twitter`, `fu_youtube`) 
                                  VALUES (CURRENT_DATE(),".$data[0].",".$data[6].",".$data[5].",".$data[4].",".$data[9].",".$data[7].",".$data[8].",".$data[3].",".$data[10].",".$data[11].",".$data[20].",".$data[2].",".$data[14].",".$data[13].",".$data[15].",".$data[19].",".$data[17].",".$data[18].");";
-
+    
             $result = $conn->query($sql);
 
      
@@ -208,8 +207,8 @@
       #END INSERT TO MYSQL
 
       #WEBPAGENEW.CSV == WEBPAGEOLD.CSV
-      $input   = fopen('cachedPages/webpagenew.csv', 'r');  //open for reading
-      $output  = fopen('cachedPages/webpageold.csv', 'w');  //open for writing
+      $input   = fopen('cachedPages/webpagenew2.csv', 'r');  //open for reading
+      $output  = fopen('cachedPages/webpageold2.csv', 'w');  //open for writing
 
       while (($data = fgetcsv($input , 100000 , ",")) !== false ) {
          fputcsv($output, $data);

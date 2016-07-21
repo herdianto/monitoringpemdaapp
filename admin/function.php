@@ -41,8 +41,9 @@ function aktif($sites){
 
 	function get_url($sites){
          $ch = curl_init($sites);
-               // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 12);
-               curl_setopt($ch, CURLOPT_TIMEOUT, 200);
+               curl_setopt($ch, CURLOPT_TIMEOUT, 100);
+               curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 100);
+               
                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36');

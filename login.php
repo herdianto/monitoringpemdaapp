@@ -10,7 +10,7 @@
 	                       
 	                        
 
-	                        $sql = "SELECT id , previlege FROM user WHERE username = '$myusername' and password = '$mypassword'";
+	                        $sql = "SELECT id , previlege FROM user WHERE username = '$myusername' and password = '$mypassword' and status=1";
 	                        
 	                        $result = mysqli_query($conn,$sql);
 	                        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);

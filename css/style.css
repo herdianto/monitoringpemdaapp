@@ -35,3 +35,11 @@
 #custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
     background-color: #202899;
 }
+
+
+
+.tab-content > .tab-pane:not(.active) {
+    display: block;
+    height: 0;
+    overflow-y: hidden;
+}
